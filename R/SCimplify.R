@@ -62,7 +62,10 @@ SCimplify <- function(X,
                       igraph.clustering = c("walktrap", "louvain"),
                       return.singlecell.NW = TRUE,
                       return.hierarchical.structure = TRUE,
-                      block.size = 10000){
+                      block.size = 10000,
+                      harmony = FALSE
+                      harmonyCategories = NA
+                     ){
 
   N.c <- ncol(X)
 
@@ -148,7 +151,10 @@ SCimplify <- function(X,
     PCA.presampled$x        <- PCA.presampled$u %*% diag(PCA.presampled$d)
     PCA.presampled$rotation <- PCA.presampled$v
   }
-
+  ## Adding Harmony option
+  if(isTRUE(harmony)){
+    PCA.presampled <- harmony::HarmonyMatrix(PCA.presampled$x, meta_data = harmonyCategories, do_pca = FALSE)
+  }
   sc.nw <- build_knn_graph(X = PCA.presampled$x[,n.pc], k = k.knn, from = "coordinates", use.nn2 = use.nn2, dist_method = "euclidean")
 
   #simplify
