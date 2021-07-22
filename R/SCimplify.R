@@ -63,7 +63,7 @@ SCimplify <- function(X,
                       return.singlecell.NW = TRUE,
                       return.hierarchical.structure = TRUE,
                       block.size = 10000,
-                      harmony = FALSE
+                      harmony = FALSE,
                       harmonyCategories = NA
                      ){
 
