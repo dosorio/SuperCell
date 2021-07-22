@@ -153,8 +153,9 @@ SCimplify <- function(X,
   }
   ## Adding Harmony option
   if(isTRUE(harmony)){
-    PCA.presampled <- harmony::HarmonyMatrix(PCA.presampled$x, meta_data = harmonyCategories, do_pca = FALSE)
+    PCA.presampled$x <- harmony::HarmonyMatrix(PCA.presampled$x, meta_data = harmonyCategories, do_pca = FALSE)
   }
+  
   sc.nw <- build_knn_graph(X = PCA.presampled$x[,n.pc], k = k.knn, from = "coordinates", use.nn2 = use.nn2, dist_method = "euclidean")
 
   #simplify
